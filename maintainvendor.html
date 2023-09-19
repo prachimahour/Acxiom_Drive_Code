@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Maintain Vendor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            background-color: #646363;
+        }
+
+        .section {
+            background-color: #454444;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        .section h3 {
+            color: #333;
+            background-color: #878181;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 20%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .data-display {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .data-display h4 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h2>Maintain Vendor</h2>
+
+    <!-- Membership Section -->
+    <div>
+        <h3>Membership</h3>
+        <button onclick="showMembershipForm('add')">Add</button>
+        <button onclick="showMembershipForm('update')">Update</button>
+
+        <div id="membership-form" style="display: none;">
+            <!-- Membership form fields go here -->
+            <br>
+            <label for="membershipName">Name:</label>
+            <input type="text" id="membershipName"><br>
+            <label for="membershipType">Type:</label>
+            <input type="text" id="membershipType"><br>
+            <br>
+            <button onclick="saveMembership()">Save</button>
+        </div>
+
+        <div id="membership-data" style="display: none;">
+            <h4>Saved Membership Data:</h4>
+            <p>Name: <span id="savedMembershipName"></span></p>
+            <p>Duration: <span id="savedMembershipType"></span></p>
+        </div>
+    </div>
+
+    <!-- User Management Section -->
+    <div>
+        <h3>User Management</h3>
+        <button onclick="showUserManagementForm('add')">Add</button>
+        <button onclick="showUserManagementForm('update')">Update</button>
+
+        <div id="user-management-form" style="display: none;">
+            <!-- User management form fields go here -->
+            <br>
+            <label for="userName">User Name:</label>
+            <input type="text" id="userName"><br>
+            <label for="userRole">Role:</label>
+            <input type="text" id="userRole"><br>
+            <br>
+            <button onclick="saveUserManagement()">Save</button>
+        </div>
+
+        <div id="user-management-data" style="display: none;">
+            <h4>Saved User Management Data:</h4>
+            <p>Vendor Name: <span id="savedUserName"></span></p>
+            <p>Vendor Work: <span id="savedUserRole"></span></p>
+        </div>
+    </div>
+    <br>
+    <button onclick="redirectTo('adminpanel.html')">Home</button>
+    <button onclick="logout()">Logout</button>
+
+    <script>
+        // Unique keys for local storage
+        const membershipKeyPrefix = 'vendor_membership_';
+        const userManagementKeyPrefix = 'vendor_user_management_';
+
+        function showMembershipForm(action) {
+            var membershipForm = document.getElementById('membership-form');
+            var membershipData = document.getElementById('membership-data');
+
+            if (action === 'add') {
+                membershipForm.style.display = 'block';
+                membershipData.style.display = 'none';
+            } else if (action === 'update') {
+                membershipForm.style.display = 'block';
+                membershipData.style.display = 'none';
+                // Populate the form with data from local storage for updating
+                // You can add code to fetch and populate the fields here
+            }
+        }
+
+        function saveMembership() {
+            var name = document.getElementById('membershipName').value;
+            var type = document.getElementById('membershipType').value;
+            const membershipNameKey = membershipKeyPrefix + 'name';
+            const membershipTypeKey = membershipKeyPrefix + 'type';
+
+            localStorage.setItem(membershipNameKey, name);
+            localStorage.setItem(membershipTypeKey, type);
+
+            var savedMembershipName = document.getElementById('savedMembershipName');
+            var savedMembershipType = document.getElementById('savedMembershipType');
+
+            savedMembershipName.textContent = name;
+            savedMembershipType.textContent = type;
+
+            var membershipForm = document.getElementById('membership-form');
+            var membershipData = document.getElementById('membership-data');
+
+            membershipForm.style.display = 'none';
+            membershipData.style.display = 'block';
+        }
+
+        function showUserManagementForm(action) {
+            var userManagementForm = document.getElementById('user-management-form');
+            var userManagementData = document.getElementById('user-management-data');
+
+            if (action === 'add') {
+                userManagementForm.style.display = 'block';
+                userManagementData.style.display = 'none';
+            } else if (action === 'update') {
+                userManagementForm.style.display = 'block';
+                userManagementData.style.display = 'none';
+                // Populate the form with data from local storage for updating
+                // You can add code to fetch and populate the fields here
+            }
+        }
+
+        function saveUserManagement() {
+            var userName = document.getElementById('userName').value;
+            var userRole = document.getElementById('userRole').value;
+            const userNameKey = userManagementKeyPrefix + 'name';
+            const userRoleKey = userManagementKeyPrefix + 'role';
+
+            localStorage.setItem(userNameKey, userName);
+            localStorage.setItem(userRoleKey, userRole);
+
+            var savedUserName = document.getElementById('savedUserName');
+            var savedUserRole = document.getElementById('savedUserRole');
+
+            savedUserName.textContent = userName;
+            savedUserRole.textContent = userRole;
+
+            var userManagementForm = document.getElementById('user-management-form');
+            var userManagementData = document.getElementById('user-management-data');
+
+            userManagementForm.style.display = 'none';
+            userManagementData.style.display = 'block';
+        }
+
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+
+        function logout() {
+            // Perform logout action, e.g., clear session or cookies
+            if (confirm('Are you sure you want to logout?') == true) {
+                alert('Logged out successfully.');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Check if there's existing data and display it on page load
+        const membershipNameKey = membershipKeyPrefix + 'name';
+        const membershipTypeKey = membershipKeyPrefix + 'type';
+        var existingMembershipName = localStorage.getItem(membershipNameKey);
+        var existingMembershipType = localStorage.getItem(membershipTypeKey);
+
+        if (existingMembershipName && existingMembershipType) {
+                var savedMembershipName = document.getElementById('savedMembershipName');
+                var savedMembershipType = document.getElementById('savedMembershipType');
+
+                savedMembershipName.textContent = existingMembershipName;
+                savedMembershipType.textContent = existingMembershipType;
+
+                var membershipForm = document.getElementById('membership-form');
+                var membershipData = document.getElementById('membership-data');
+
+                membershipForm.style.display = 'none';
+                membershipData.style.display = 'block';
+            }
+
+            const userNameKey = userManagementKeyPrefix + 'name';
+            const userRoleKey = userManagementKeyPrefix + 'role';
+            var existingUserName = localStorage.getItem(userNameKey);
+            var existingUserRole = localStorage.getItem(userRoleKey);
+
+            if (existingUserName && existingUserRole) {
+                var savedUserName = document.getElementById('savedUserName');
+                var savedUserRole = document.getElementById('savedUserRole');
+
+                savedUserName.textContent = existingUserName;
+                savedUserRole.textContent = existingUserRole;
+
+                var userManagementForm = document.getElementById('user-management-form');
+                var userManagementData = document.getElementById('user-management-data');
+
+                userManagementForm.style.display = 'none';
+                userManagementData.style.display = 'block';
+            }
+    </script>
+</body>
+</html>
+

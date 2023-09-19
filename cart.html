@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            background-color: #646363;
+        }
+
+        .cart-item {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            margin: 20px auto;
+            text-align: left;
+        }
+
+        .cart-item img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .cart-content {
+            padding: 10px;
+        }
+
+        .cart-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h2>Cart</h2>
+    <div>
+        <button onclick="redirectTo('user.html')">Home</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+    <div class="cart-container" id="cartItems">
+        <!-- Cart items will be displayed here -->
+    </div>
+    <script>
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+
+        function logout() {
+            // Perform logout action, e.g., clear session or cookies
+            if (confirm('Are you sure you want to logout?') == true) {
+                alert('Logged out successfully.');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Initialize cart array from local storage or create an empty array
+        var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Render cart items on the page
+        var cartItemsContainer = document.getElementById('cartItems');
+        function renderCartItems() {
+            cartItemsContainer.innerHTML = '';
+
+            cart.forEach(function(item) {
+                var cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-content">
+                        <h3>${item.name}</h3>
+                        <p>Price: $${item.price}</p>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+        }
+
+        renderCartItems();
+
+        // Function to add an item to the cart
+        function addToCart(item) {
+            cart.push(item);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCartItems();
+        }
+    </script>
+</body>
+</html>

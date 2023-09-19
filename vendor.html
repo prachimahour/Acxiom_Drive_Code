@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vendor Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            background-color: #646363;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .logout-button {
+            background-color: #c40000; /* Red color for logout */
+        }
+
+        .logout-button:hover {
+            background-color: #ff0000; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to the Vendor Page</h2>
+
+    <div class="button-container">
+        <button onclick="redirectTo('additem.html')">Add New Item</button>
+        <button onclick="redirectTo('viewitem.html')">View Items</button>
+        <button onclick="redirectTo('transactions.html')">Transactions</button>
+        <button onclick="logout()" class="logout-button">Logout</button>
+    </div>
+
+    <script>
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+
+        function logout() {
+            // Perform logout action, e.g., clear session or cookies
+            if (confirm('Are you sure you want to logout?') == true) {
+                alert('Logged out successfully.');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>

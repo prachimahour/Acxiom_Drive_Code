@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Item</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            background-color: #646363;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            margin: 20px auto;
+            text-align: left;
+            padding: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .content-display {
+            margin-top: 20px;
+        }
+
+        .product-card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            width: 400px;
+            padding: 10px;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product-card button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Add New Item</h2>
+    <div>
+        <button onclick="redirectTo('viewproduct.html')">View Product</button>
+        <button onclick="redirectTo('productstatus.html')">Product Status</button>
+        <button onclick="redirectTo('requestitem.html')">Request Item</button>
+        <button onclick="redirectTo('vendor.html')">Back to Vendor Page</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <div class="card">
+        <h3>Add Product</h3>
+        <div class="form-group">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName">
+        </div>
+        <div class="form-group">
+            <label for="productPrice">Product Price:</label>
+            <input type="text" id="productPrice">
+        </div>
+        <div class="form-group">
+            <label for="productImage">Product Image URL:</label>
+            <input type="text" id="productImage">
+        </div>
+        <button onclick="addProduct()">Add Product</button>
+    </div>
+
+    <div class="content-display">
+        <h3>Saved Products</h3>
+        <div class="product-card-container" id="savedProducts"></div>
+    </div>
+    <script>
+        var updateIndex = -1; // To track the index of the product being updated
+
+        function addProduct() {
+            var productName = document.getElementById('productName').value;
+            var productPrice = document.getElementById('productPrice').value;
+            var productImage = document.getElementById('productImage').value;
+
+            if (!productName || !productPrice || !productImage) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            var savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+
+            if (updateIndex >= 0) {
+                // Update an existing product
+                savedProducts[updateIndex] = {
+                    name: productName,
+                    price: productPrice,
+                    image: productImage
+                };
+                updateIndex = -1; // Reset updateIndex after update
+            } else {
+                // Add a new product
+                var newProduct = {
+                    name: productName,
+                    price: productPrice,
+                    image: productImage
+                };
+                savedProducts.push(newProduct);
+            }
+
+            localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
+            displaySavedProducts();
+            clearForm();
+        }
+
+        function displaySavedProducts() {
+            var savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+            var savedProductsContainer = document.getElementById('savedProducts');
+            savedProductsContainer.innerHTML = '';
+
+            savedProducts.forEach(function(product, index) {
+                var productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <p>Price: $${product.price}</p>
+                    <img src="${product.image}" alt="${product.name}">
+                    <button onclick="deleteProduct(${index})">Delete</button>
+                    <button onclick="editProduct(${index})">Edit</button>
+                `;
+                savedProductsContainer.appendChild(productCard);
+            });
+        }
+
+        function editProduct(index) {
+            var savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+
+            if (index >= 0 && index < savedProducts.length) {
+                var product = savedProducts[index];
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productImage').value = product.image;
+
+                updateIndex = index; // Set updateIndex to the current index
+            }
+        }
+
+        function deleteProduct(index) {
+            var savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+
+            if (index >= 0 && index < savedProducts.length) {
+                savedProducts.splice(index, 1);
+                localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
+                displaySavedProducts();
+                clearForm();
+            }
+        }
+
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+
+        function logout() {
+            // Perform logout action, e.g., clear session or cookies
+            if (confirm('Are you sure you want to logout?') == true) {
+                alert('Logged out successfully.');
+                window.location.href = 'login.html';
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('productName').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productImage').value = '';
+        }
+
+        // Display saved products on page load
+        displaySavedProducts();
+    </script>
+</body>
+</html>

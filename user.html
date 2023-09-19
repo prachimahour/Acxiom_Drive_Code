@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            background-color: #646363;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h2>User Page</h2>
+    <div class="button-container">
+        <div class="dropdown">
+            <button class="dropbtn">Vendor</button>
+            <div class="dropdown-content">
+                <a href="catering.html">Catering</a>
+                <a href="lighting.html">Lighting</a>
+                <a href="decoration.html">Decoration</a>
+                <a href="flower.html">Flower</a>
+            </div>
+        </div>
+        <button onclick="redirectTo('cart.html')">Cart</button>
+        <button onclick="redirectTo('product.html')">Products</button>
+        <button onclick="redirectTo('orderstatus.html')">Order Status</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+
+        function logout() {
+            // Perform logout action, e.g., clear session or cookies
+            if (confirm('Are you sure you want to logout?') == true) {
+                alert('Logged out successfully.');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+</html>

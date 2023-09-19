@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Catering Vendor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            background-color: #646363;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 200px;
+            margin: 20px;
+            text-align: left;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .shop-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .shop-button:hover {
+            background-color: #555;
+        }
+
+        .card-content {
+            padding: 10px;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h2>Catering Vendor</h2>
+    <div>
+        <button onclick="redirectTo('user.html')">Home</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+    <div class="card-container">
+        <!-- Vendor Card 1 -->
+        <div class="card">
+            <div class="card-content">
+                <h3>Vendor 1</h3>
+                <p>Contact: vendor1@example.com</p>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD3NAZ5pkvEYXcdFOBakPznPIzSSRO_zsimQ&usqp=CAU" alt="Vendor 1">
+            </div>
+            <button class="shop-button">Shop Item</button>
+        </div>
+
+        <!-- Vendor Card 2 -->
+        <div class="card">
+            <div class="card-content">
+                <h3>Vendor 2</h3>
+                <p>Contact: vendor2@example.com</p>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThiQD2HKeK8X6EnnXJ8d_jyjFhOaB3Wbf9gQ&usqp=CAU" alt="Vendor 2">
+            </div>
+            <button class="shop-button">Shop Item</button>
+        </div>
+
+        <!-- Vendor Card 3 -->
+        <div class="card">
+            <div class="card-content">
+                <h3>Vendor 3</h3>
+                <p>Contact: vendor3@example.com</p>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_v7t8OK8mKqWtkYnhiB_kO6fVpO9pq_Hv8w&usqp=CAU" alt="Vendor 3">
+            </div>
+            <button class="shop-button">Shop Item</button>
+        </div>
+
+        <!-- Vendor Card 4 -->
+        <div class="card">
+            <div class="card-content">
+                <h3>Vendor 4</h3>
+                <p>Contact: vendor4@example.com</p>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu1aM-YYcbAqd9o6HN1_x4TyCTlLhj6N9X5Q&usqp=CAU" alt="Vendor 4">
+            </div>
+            <button class="shop-button">Shop Item</button>
+        </div>
+
+        <!-- Add more vendor cards here -->
+    </div>
+    <script>
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+
+        function logout() {
+            // Perform logout action, e.g., clear session or cookies
+            if (confirm('Are you sure you want to logout?') == true) {
+                alert('Logged out successfully.');
+                window.location.href = 'login.html';
+            }
+        }
+
+    </script>
+</body>
+</html>
